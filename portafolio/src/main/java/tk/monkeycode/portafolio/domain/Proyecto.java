@@ -1,6 +1,6 @@
 package tk.monkeycode.portafolio.domain;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,9 +15,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.Nationalized;
 
@@ -34,9 +31,11 @@ public class Proyecto {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer id;
 	
-	@Column(nullable = false)
+	@Nationalized
+	@Column(nullable = false, length = 50)
 	private String nombre;
 	
+	@Nationalized
 	@Column(nullable = false)
 	private String descripcionCorta;
 	
@@ -45,25 +44,23 @@ public class Proyecto {
 	@Column(nullable = true)
 	private String descripcionLarga;
 	
-	@Column(nullable = true)
+	@Column(nullable = true, length = 50)
 	private String imagen;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, length = 100)
 	private String urlProyecto;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, length = 100)
 	private String urlRepositorio;
 	
 	@Column(nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Date creadoEn;
+	private LocalDate creadoEn;
 	
 	@JsonIgnoreProperties(value = {"proyectos"})
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "proyectos_etiquetas",
-	   joinColumns = @JoinColumn(name = "proyecto_id"),
-	   inverseJoinColumns = @JoinColumn(name = "etiqueta_id"),
-	   uniqueConstraints = {@UniqueConstraint(columnNames = {"proyecto_id", "etiqueta_id"})}) 
+			   joinColumns = @JoinColumn(name = "proyecto_id"),
+			   inverseJoinColumns = @JoinColumn(name = "etiqueta_id")) 
 	private List<Etiqueta> etiquetas;
 
 }
