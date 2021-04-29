@@ -1,7 +1,5 @@
 package tk.monkeycode.portafolio.controller;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +26,7 @@ import tk.monkeycode.portafolio.service.StorageService;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = {"http://localhost:4200", "*"})
+@CrossOrigin(origins = {"http://localhost:4200"})
 public class PortafolioController {
 	
 	@Autowired
