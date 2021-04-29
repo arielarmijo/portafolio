@@ -1,6 +1,6 @@
 package tk.monkeycode.portafolio.domain;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,6 +15,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.Nationalized;
@@ -53,7 +55,8 @@ public class Proyecto {
 	private String urlRepositorio;
 	
 	@Column(nullable = false)
-	private LocalDate creadoEn;
+	@Temporal(TemporalType.DATE)
+	private Date creadoEn;
 	
 	@JsonIgnoreProperties(value = {"proyectos"})
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

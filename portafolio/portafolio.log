@@ -1,0 +1,11 @@
+2021-04-28 23:17:20.358  INFO 247589 --- [restartedMain] t.m.portafolio.PortafolioApplication     : Starting PortafolioApplication using Java 11.0.10 on sulaco with PID 247589 (/home/aarmijo/Proyectos/git/portafolio/portafolio/target/classes started by aarmijo in /home/aarmijo/Proyectos/git/portafolio/portafolio)
+2021-04-28 23:17:20.359  INFO 247589 --- [restartedMain] t.m.portafolio.PortafolioApplication     : The following profiles are active: prod
+2021-04-28 23:17:20.462  INFO 247589 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-04-28 23:17:20.468  INFO 247589 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 5 ms. Found 2 JPA repository interfaces.
+2021-04-28 23:17:20.529  INFO 247589 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-04-28 23:17:20.530  INFO 247589 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-04-28 23:17:20.530  INFO 247589 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.45]
+2021-04-28 23:17:20.536  INFO 247589 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-04-28 23:17:20.536  INFO 247589 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 176 ms
+2021-04-28 23:17:20.565  INFO 247589 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-04-28 23:17:20.569  INFO 247589 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
