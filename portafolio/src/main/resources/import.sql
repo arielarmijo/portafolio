@@ -14,3 +14,8 @@ insert into proyectos_etiquetas (proyecto_id, etiqueta_id) values (2, 1);
 insert into proyectos_etiquetas (proyecto_id, etiqueta_id) values (2, 3);
 insert into proyectos_etiquetas (proyecto_id, etiqueta_id) values (2, 4);
 
+update proyectos set descripcion_larga='Solución al caso World Parts Tech de la prueba de certificación de Talento Digital. El caso consiste en realizar consultas a una base de datos relacional, construir algoritmo de validación de margen de ventas con sus respectivas pruebas unitarias. También se pide crear una página web que muestre el listado de productos y una API REST que muestre la misma información. El proyecto se realizó utilizando Java, JSP y Spring'
+where id = 1;
+
+update proyectos set descripcion_larga='Solución al caso Classic Models de la prueba de certificación de Talento Digital. El caso consiste en realizar consultas a una base de datos relacional, construir algoritmo para el cálculo de descuentos y promociones e implementar pruebas unitarias. También se pide crear una página web que muestre el listado de órdenes y una API REST que muestre la misma información. El proyecto se realizó utilizando Java, JSP y Spring'
+where id = 2;

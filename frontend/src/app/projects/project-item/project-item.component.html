@@ -1,38 +1,50 @@
 <div class="container animated fadeIn">
 
-    <div *ngIf="proyecto" class="card shadow">
-        
-        <img [src]="proyecto.imagen" class="card-img" [alt]="proyecto.nombre">
-        
-        <div class="card-header text-center">
-            <h2 class="card-tile">{{proyecto.nombre}}</h2>
-            <p class="card-text">{{proyecto.descripcionCorta}}</p>
-        </div>
-        
-        <div class="card-body">
+   <div *ngIf="!proyecto">
+       <app-spinner></app-spinner>
+   </div>
 
-            <p class="card-text">{{proyecto.descripcionLarga}}</p>
+    <div *ngIf="proyecto" class="container">
+
+        <div class="mb-5">
+            <img [src]="proyecto.imagen" class="img-fluid shadow border rounded mx-auto d-block" [alt]="proyecto.nombre">
+        </div>
+
+        <div class="card shadow pb-4 col-xl-10 mx-auto">
             
-            <p class="text-end">
-                <a [href]="proyecto.urlProyecto" class="card-link">
-                    <i class="fas fa-globe"></i>
-                    <span>{{proyecto.urlProyecto}}</span>
-                </a>
-            </p>
-            <p class="text-end">
-                <a [href]="proyecto.urlRepositorio" class="card-link">
-                    <i class="fab fa-github"></i>
-                    <span>{{proyecto.urlRepositorio}}</span>
-                </a>
-            </p>
-            <p class="card-text text-center">
-                <span class="badge bg-secondary"
-                      *ngFor="let etiqueta of proyecto.etiquetas">{{etiqueta.nombre}}</span>
-            </p>
-            <a class="btn btn-sm btn-primary float-end" routerLink="/proyectos">Volver</a>
+            <div class="card-header text-center">
+                <h2 class="card-tile">{{proyecto.nombre}}</h2>
+                <p class="card-text">{{proyecto.descripcionCorta}}</p>
+            </div>
+            
+            <div class="card-body">
+
+                <p class="card-text">{{proyecto.descripcionLarga}}</p>
+                
+                <p class="link">
+                    <a [href]="proyecto.urlProyecto" class="card-link">
+                        <i class="fas fa-globe"></i>
+                        <span>{{proyecto.urlProyecto}}</span>
+                    </a>
+                </p>
+
+                <p class="link">
+                    <a [href]="proyecto.urlRepositorio" class="card-link">
+                        <i class="fab fa-github"></i>
+                        <span>{{proyecto.urlRepositorio}}</span>
+                    </a>
+                </p>
+
+                <div class="tag-container">
+                    <span class="badge bg-secondary" *ngFor="let etiqueta of proyecto.etiquetas">{{etiqueta.nombre}}</span>
+                </div>
+
+                <a class="btn btn-sm btn-primary float-end" routerLink="/proyectos">Volver</a>
+
+            </div>
+
         </div>
 
     </div>
-
 </div>
 

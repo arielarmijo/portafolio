@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Nationalized;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
@@ -24,6 +26,7 @@ public class Etiqueta {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer id;
 	
+	@Nationalized
 	@Column(nullable = false)
 	private String nombre;
 

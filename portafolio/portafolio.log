@@ -1,0 +1,8 @@
+2021-04-29 14:10:13.396  INFO 175079 --- [restartedMain] t.m.portafolio.PortafolioApplication     : Starting PortafolioApplication using Java 11.0.10 on sulaco with PID 175079 (/home/aarmijo/Proyectos/git/portafolio/portafolio/target/classes started by aarmijo in /home/aarmijo/Proyectos/git/portafolio/portafolio)
+2021-04-29 14:10:13.398  INFO 175079 --- [restartedMain] t.m.portafolio.PortafolioApplication     : The following profiles are active: prod
+2021-04-29 14:10:13.516  INFO 175079 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-04-29 14:10:13.524  INFO 175079 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 7 ms. Found 2 JPA repository interfaces.
+2021-04-29 14:10:13.587  INFO 175079 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-04-29 14:10:13.593  INFO 175079 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 192 ms
+2021-04-29 14:10:13.621  INFO 175079 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-04-29 14:10:13.624  INFO 175079 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Starting...
