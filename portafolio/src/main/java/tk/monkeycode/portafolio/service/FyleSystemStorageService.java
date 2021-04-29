@@ -8,6 +8,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+import javax.management.RuntimeErrorException;
+
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -20,7 +22,7 @@ import tk.monkeycode.portafolio.exception.StorageFileNotFoundException;
 @Service
 public class FyleSystemStorageService implements StorageService {
 	
-	private final Path root = Paths.get("uploads");
+	private final Path root = Paths.get("/home/ubuntu/uploads/portafolio");
 
 	@Override
 	public void store(MultipartFile file) {
@@ -31,9 +33,11 @@ public class FyleSystemStorageService implements StorageService {
 			Path destinationFile = root.resolve(Paths.get(file.getOriginalFilename()))
 									   .normalize()
 									   .toAbsolutePath();
+			log.info("{}", destinationFile.toString() );
 			Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException e) {
 			log.error("{}", e.getMessage());
+			throw new StorageFileNotFoundException("Could not read file: ", e);
 		}
 	}
 
