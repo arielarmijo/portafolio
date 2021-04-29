@@ -1,0 +1,38 @@
+<div class="container animated fadeIn">
+
+    <div *ngIf="proyecto" class="card shadow">
+        
+        <img [src]="proyecto.imagen" class="card-img" [alt]="proyecto.nombre">
+        
+        <div class="card-header text-center">
+            <h2 class="card-tile">{{proyecto.nombre}}</h2>
+            <p class="card-text">{{proyecto.descripcionCorta}}</p>
+        </div>
+        
+        <div class="card-body">
+
+            <p class="card-text">{{proyecto.descripcionLarga}}</p>
+            
+            <p class="text-end">
+                <a [href]="proyecto.urlProyecto" class="card-link">
+                    <i class="fas fa-globe"></i>
+                    <span>{{proyecto.urlProyecto}}</span>
+                </a>
+            </p>
+            <p class="text-end">
+                <a [href]="proyecto.urlRepositorio" class="card-link">
+                    <i class="fab fa-github"></i>
+                    <span>{{proyecto.urlRepositorio}}</span>
+                </a>
+            </p>
+            <p class="card-text text-center">
+                <span class="badge bg-secondary"
+                      *ngFor="let etiqueta of proyecto.etiquetas">{{etiqueta.nombre}}</span>
+            </p>
+            <a class="btn btn-sm btn-primary float-end" routerLink="/proyectos">Volver</a>
+        </div>
+
+    </div>
+
+</div>
+

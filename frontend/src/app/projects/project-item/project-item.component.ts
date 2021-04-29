@@ -1,0 +1,25 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Proyecto } from 'src/app/models/proyecto';
+import { ProyectoService } from 'src/app/services/proyecto.service';
+
+@Component({
+  selector: 'app-project-item',
+  templateUrl: './project-item.component.html',
+  styleUrls: ['./project-item.component.css']
+})
+export class ProjectItemComponent implements OnInit {
+
+  proyecto!: Proyecto;
+
+  constructor(private proyectoService: ProyectoService,
+              private activatedRouter: ActivatedRoute) { }
+
+  ngOnInit(): void {
+    this.activatedRouter.params.subscribe(p => {
+      this.proyectoService.obtenerProyectoPorId(p['id']).subscribe(proyecto => this.proyecto = proyecto);
+    });
+  }
+
+}

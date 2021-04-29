@@ -1,0 +1,24 @@
+<div class="container animated fadeIn">
+
+    <app-spinner *ngIf="cargando"></app-spinner>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" *ngIf="!cargando">
+
+        <div class="col" *ngFor="let proyecto of proyectos">
+            <div class="card text-white flip-card" [routerLink]="['/proyecto', proyecto.id]">
+                <div class="flip-card-inner">
+                    <img [src]="proyecto.imagen" class="flip-card-front" [alt]="proyecto.nombre"/>
+                    <div class="card-img-overlay flip-card-back">
+                        <h5 class="card-title">{{proyecto.nombre}}</h5>
+                        <p class="card-text">{{proyecto.descripcionCorta}}</p>
+                        <p class="card-text">
+                            <span class="badge bg-light text-dark"
+                                  *ngFor="let etiqueta of proyecto.etiquetas">{{etiqueta.nombre}}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
