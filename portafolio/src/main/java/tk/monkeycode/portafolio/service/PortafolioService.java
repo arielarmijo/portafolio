@@ -8,8 +8,10 @@ import tk.monkeycode.portafolio.domain.Proyecto;
 public interface PortafolioService {
 
 	List<Proyecto> obtenerProyectos();
-	List<Etiqueta> obtenerEtiquetas();
 	Proyecto buscarProyectoPorId(int id);
-	void guardarProyecto(Proyecto p);
+	Proyecto guardarProyecto(Proyecto p);
+	void borrarProyecto(int id);
+	
+	List<Etiqueta> obtenerEtiquetas();
 	
 }

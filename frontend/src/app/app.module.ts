@@ -10,21 +10,27 @@ import { ProjectListComponent } from './projects/project-list/project-list.compo
 import { ProjectItemComponent } from './projects/project-item/project-item.component';
 import { AboutComponent } from './about/about.component';
 import { SpinnerComponent } from './common/spinner/spinner.component';
+import { AdminProjectListComponent } from './admin/admin-project-list/admin-project-list.component';
+import { AdminProjectFormComponent } from './admin/admin-project-form/admin-project-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     FooterComponent,
+    SpinnerComponent,
     ProjectListComponent,
     ProjectItemComponent,
     AboutComponent,
-    SpinnerComponent
+    AdminProjectListComponent,
+    AdminProjectFormComponent    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

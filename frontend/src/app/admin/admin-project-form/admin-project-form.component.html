@@ -1,0 +1,86 @@
+<div class="container">
+
+    <div class="card border shadow">
+
+        <div class="card-header">
+            <h1 class="text-center">Formulario Proyecto</h1>
+        </div>
+
+        <div class="card-body">
+
+            <form [formGroup]="projectForm" (ngSubmit)="crearProyecto()">
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        <img *ngIf="imageUrl" [src]="imageUrl" width="250" alt="Imagen proyecto" class="d-block mx-auto mb-4 mb-lg-0">
+                    </div>
+                    <div class="col-lg-8">
+                        <label for="imagen" class="form-label">Imagen:</label>
+                        <input id="imagen" class="form-control" type="file" (change)="preview($event)"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label for="nombre" class="form-label">Nombre:</label>
+                        <input id="nombre" class="form-control"
+                               formControlName="nombre"/>
+                    </div>
+                </div>
+        
+                <div class="row">
+                    <div class="col">
+                        <label for="descC" class="form-label">Descripción corta:</label>
+                        <input id="descC" class="form-control"
+                               formControlName="descripcionCorta"/>
+                    </div>
+                </div>
+        
+                <div class="row">
+                    <div class="col">
+                        <label for="descL" class="form-label">Descripción larga:</label>
+                        <textarea id="descL" class="form-control" rows="10"
+                                  formControlName="descripcionLarga"></textarea>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label for="urlProyecto" class="form-label">Url proyecto:</label>
+                        <input id="urlProyecto" class="form-control"
+                               formControlName="urlProyecto"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label for="urlRepositorio" class="form-label">Url repositorio:</label>
+                        <input id="urlRepositorio" class="form-control"
+                               formControlName="urlRepositorio"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="creadoEn" class="form-label">Fecha creación:</label>
+                        <input id="creadoEn" type="date" class="form-control"
+                               formControlName="creadoEn"/>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-plus-circle"></i>
+                            <span>{{action}}</span>
+                        </button>
+                    </div>
+                </div>
+    
+            </form>
+
+        </div>
+    
+    </div>
+    
+</div>

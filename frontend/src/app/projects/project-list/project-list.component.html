@@ -1,22 +1,23 @@
 <div class="container animated fadeIn">
 
-    <app-spinner *ngIf="cargando"></app-spinner>
+    <app-spinner *ngIf="!proyectos"></app-spinner>
 
-    <div class="row g-4" *ngIf="!cargando">
+    <div class="alert alert-danger" *ngIf="proyectos && proyectos.length == 0">
+        <p class="m-2 text-center">No existen proyectos.</p>
+    </div>
+
+    <div class="row g-4" *ngIf="proyectos && proyectos.length > 0">
 
         <div class="col" *ngFor="let proyecto of proyectos">
 
             <div class="card text-white flip-card">
-                <div class="flip-card-inner">
+                <div class="flip-card-inner shadow">
 
-                    <img [src]="proyecto.imagen" class="flip-card-front border shadow" [alt]="proyecto.nombre"/>
+                    <img [src]="proyecto.imagen" class="flip-card-front" [alt]="proyecto.nombre"/>
 
-                    <div class="card-img-overlay flip-card-back border shadow" [routerLink]="['/proyecto', proyecto.id]">
+                    <div class="card-img-overlay flip-card-back" [routerLink]="['/proyecto', proyecto.id]">
                         <h5 class="card-title">{{proyecto.nombre}}</h5>
                         <p class="card-text pt-2">{{proyecto.descripcionCorta}}</p>
-                        <p class="card-text">
-                            <span class="badge bg-light text-dark" *ngFor="let etiqueta of proyecto.etiquetas">{{etiqueta.nombre}}</span>
-                        </p>
                     </div>
 
                 </div>

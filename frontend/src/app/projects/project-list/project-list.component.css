@@ -9,10 +9,10 @@
 
 .flip-card {
   background-color: transparent;
-  width: 420px;
-  height: 260px;
+  width: 315px;
+  height: 195px;
   border: 1px solid #f1f1f1;
-  perspective: 1000px;  /* Remove this if you don't want the 3D effect */
+  /*perspective: 1000px;   Remove this if you don't want the 3D effect */
   
   user-select: none;
 }

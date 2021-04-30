@@ -53,7 +53,7 @@ public class Proyecto {
 	@Column(nullable = false, length = 100)
 	private String urlRepositorio;
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private LocalDate creadoEn;
 	
 	@JsonIgnoreProperties(value = {"proyectos"})

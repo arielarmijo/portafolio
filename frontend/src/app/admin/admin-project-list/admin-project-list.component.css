@@ -1,0 +1,22 @@
+
+button {
+    margin: 0.25rem 0.25rem;
+}
+
+.new-project {
+    display: flex;
+    justify-content: flex-end;
+    margin: 2rem 0 1.5rem;
+}
+
+.new-project svg {
+    margin-right: 0.5rem;
+}
+
+a svg {
+    color: #6c757d;
+}
+
+a svg:hover {
+    color: black;
+}

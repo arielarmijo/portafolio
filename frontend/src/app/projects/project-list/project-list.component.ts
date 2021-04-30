@@ -9,18 +9,12 @@ import { ProyectoService } from 'src/app/services/proyecto.service';
 })
 export class ProjectListComponent implements OnInit {
 
-  proyectos?: Proyecto[];
-  cargando = true;
+  proyectos!: Proyecto[];
 
-  constructor(private proyectoService: ProyectoService) {
-    
-  }
+  constructor(private proyectoService: ProyectoService) { }
 
   ngOnInit(): void {
-    this.proyectoService.obtenerProyectos().subscribe(resp => {
-      this.proyectos = resp;
-      this.cargando = false;
-    });
+    this.proyectoService.obtenerProyectos().subscribe(resp => this.proyectos = resp);
   }
 
 }

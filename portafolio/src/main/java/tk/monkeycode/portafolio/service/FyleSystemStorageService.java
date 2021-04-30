@@ -43,16 +43,16 @@ public class FyleSystemStorageService implements StorageService {
 
 	@Override
 	public Resource loadAsResource(String filename) {
-		Path file = Paths.get(uploads).resolve(filename);
-		log.info(file.toString());
+		Path file;
+		Resource resource;
 		try {
-			Resource resource = new UrlResource(file.toUri());
-			if (resource.exists() || resource.isReadable()) {
-				return resource;
+			file = Paths.get(uploads).resolve(filename);
+			resource = new UrlResource(file.toUri());
+			if (!resource.exists() || !resource.isReadable()) {
+				file = Paths.get(uploads).resolve("no-image.jpg");
+				resource = new UrlResource(file.toUri());
 			}
-			else {
-				throw new StorageFileNotFoundException("Could not read file: " + filename);
-			}
+			return resource;
 		}
 		catch (MalformedURLException e) {
 			throw new StorageFileNotFoundException("Could not read file: " + filename, e);
