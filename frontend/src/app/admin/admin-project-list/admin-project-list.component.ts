@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Proyecto } from 'src/app/models/proyecto';
+import { ProyectoWrapper } from 'src/app/models/proyecto-wrapper.interface';
+import { Proyecto } from 'src/app/models/proyecto.interface';
 import { ProyectoService } from 'src/app/services/proyecto.service';
 import Swal from 'sweetalert2';
 
@@ -12,16 +13,15 @@ import Swal from 'sweetalert2';
 export class AdminProjectListComponent implements OnInit, OnDestroy {
 
   proyectos: Proyecto[] = [];
-  mensaje = 'No existen proyectos.';
-  cargando!: boolean;
+  cargando = true;
+  mensaje!: string;
 
   subscripcion!: Subscription;
 
   constructor(private ps: ProyectoService) { }
 
   ngOnInit(): void {
-    this.subscripcion = this.ps.obtenerProyectos().subscribe(resp => this.cargarProyectos(resp),
-                                                             error => this.errorHandler(error));
+    this.subscripcion = this.ps.obtenerProyectos().subscribe(resp => this.cargarProyectos(resp));
   }
 
   ngOnDestroy(): void {
@@ -39,22 +39,17 @@ export class AdminProjectListComponent implements OnInit, OnDestroy {
       if (result.isConfirmed) {
         this.ps.borrarProyecto(proyecto.id as number).subscribe(resp => {
           console.log(resp);
-          this.ps.obtenerProyectos().subscribe(proyectos => this.proyectos = proyectos);
+          this.ps.obtenerProyectos().subscribe(resp => this.proyectos = resp.proyectos);
         });
       }
     });
   }
 
 
-  private cargarProyectos(resp: any): void {
-    console.log('respuesta', resp);
-    this.proyectos= resp;
-  }
-
-  private errorHandler(error: any): void {
-    console.log('error', error);
-    this.proyectos = [];
-    this.mensaje = 'Error de conexión.';
+  private cargarProyectos(resp: ProyectoWrapper): void {
+    this.proyectos= resp.proyectos;
+    this.mensaje = resp.estado;
+    this.cargando = false;
   }
 
 }

@@ -1,12 +1,12 @@
 <div class="container animated fadeIn">
 
-    <app-spinner *ngIf="!proyectos"></app-spinner>
+    <app-spinner *ngIf="cargando"></app-spinner>
 
-    <div class="alert alert-danger" *ngIf="proyectos && proyectos.length == 0">
+    <div class="alert alert-danger" *ngIf="!cargando && proyectos.length == 0">
         <p class="m-2 text-center">{{mensaje}}</p>
     </div>
 
-    <div class="row g-4" *ngIf="proyectos && proyectos.length > 0">
+    <div class="row g-4" *ngIf="proyectos.length > 0">
 
         <div class="col" *ngFor="let proyecto of proyectos">
 

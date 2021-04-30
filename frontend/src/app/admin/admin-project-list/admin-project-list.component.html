@@ -13,7 +13,7 @@
         <app-spinner></app-spinner>
     </div>
 
-    <div class="alert alert-danger" *ngIf="proyectos.length == 0">
+    <div class="alert alert-danger" *ngIf="!cargando && proyectos.length == 0">
         <p class="m-2 text-center">{{mensaje}}</p>
     </div>
 

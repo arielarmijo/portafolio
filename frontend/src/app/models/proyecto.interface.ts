@@ -1,4 +1,4 @@
-import { Etiqueta } from "./etiqueta";
+import { Etiqueta } from "./etiqueta.interface";
 
 export interface Proyecto {
     id?: number;

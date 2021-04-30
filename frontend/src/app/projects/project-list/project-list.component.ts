@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Proyecto } from 'src/app/models/proyecto';
+import { ProyectoWrapper } from 'src/app/models/proyecto-wrapper.interface';
+import { Proyecto } from 'src/app/models/proyecto.interface';
 import { ProyectoService } from 'src/app/services/proyecto.service';
 
 @Component({
@@ -10,32 +11,26 @@ import { ProyectoService } from 'src/app/services/proyecto.service';
 })
 export class ProjectListComponent implements OnInit, OnDestroy {
 
-  proyectos!: Proyecto[];
-  mensaje = 'No existen proyectos.';
-  cargando!: boolean;
+  proyectos: Proyecto[] = [];
+  cargando = true;
+  mensaje!: string;
 
   subscripcion!: Subscription; 
 
-  constructor(private proyectoService: ProyectoService) { }
+  constructor(private ps: ProyectoService) { }
   
   ngOnInit(): void {
-    this.subscripcion = this.proyectoService.obtenerProyectos().subscribe(resp => this.cargarProyectos(resp),
-                                                                          error => this.errorHandler(error));
+    this.subscripcion = this.ps.obtenerProyectos().subscribe(resp => this.cargarProyectos(resp));
   }
 
   ngOnDestroy(): void {
     this.subscripcion.unsubscribe();
   }
 
-  private cargarProyectos(resp: any): void {
-    console.log('respuesta', resp);
-    this.proyectos= resp;
-  }
-
-  private errorHandler(error: any): void {
-    console.log('error', error);
-    this.proyectos = [];
-    this.mensaje = 'Error de conexión.';
+  private cargarProyectos(resp: ProyectoWrapper): void {
+    this.proyectos= resp.proyectos;
+    this.mensaje = resp.estado;
+    this.cargando = false;
   }
 
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Proyecto } from 'src/app/models/proyecto';
+import { Proyecto } from 'src/app/models/proyecto.interface';
 import { ProyectoService } from 'src/app/services/proyecto.service';
 
 @Component({
