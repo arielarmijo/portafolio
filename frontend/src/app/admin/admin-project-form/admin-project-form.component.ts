@@ -35,17 +35,17 @@ export class AdminProjectFormComponent implements OnInit {
     this.projectForm = this.fb.group({
       imagen: [''],
       file: [null],
-      nombre: ['test'],
-      descripcionCorta: ['test'],
-      descripcionLarga: ['test'],
-      urlProyecto: ['test'],
-      urlRepositorio: ['test'],
+      nombre: [''],
+      descripcionCorta: [''],
+      descripcionLarga: [''],
+      urlProyecto: [''],
+      urlRepositorio: [''],
       creadoEn: [this.hoy]
     });
   }
 
-  preview(event: any) {
-
+  vistaPrevia(event: any) {
+    
     var reader = new FileReader();
     const file = event.target.files[0];
 
@@ -107,6 +107,7 @@ export class AdminProjectFormComponent implements OnInit {
             cancelButtonText: 'No'
           }).then((result) => {
             if (result.isConfirmed) {
+              this.imageUrl = '';
               this.projectForm.reset();
               setTimeout(() => {
                 window.scrollTo(0,0);
