@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Nationalized;
@@ -25,18 +26,18 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "proyectos")
+@SequenceGenerator(name="proyectoSeq", sequenceName = "proyecto_seq", allocationSize = 1)
 public class Proyecto {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="proyectoSeq")
 	private Integer id;
 	
-	@Nationalized
 	@Column(nullable = false, length = 50)
 	private String nombre;
 	
+	@Column(nullable = false, length = 150)
 	@Nationalized
-	@Column(nullable = false)
 	private String descripcionCorta;
 	
 	@Lob
@@ -47,7 +48,7 @@ public class Proyecto {
 	@Column(nullable = true, length = 50)
 	private String imagen;
 	
-	@Column(nullable = false, length = 100)
+	@Column(nullable = true, length = 100)
 	private String urlProyecto;
 	
 	@Column(nullable = false, length = 100)

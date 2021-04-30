@@ -29,7 +29,7 @@ export class ProyectoService {
     return this.proyectos$;
   }
 
-  obtenerProyectoPorId(id: number) {
+  obtenerProyectoPorId(id: number): Observable<Proyecto> {
     return this.http.get<Proyecto>(`${this.apiUrl}/proyecto/${id}`).pipe(map(proyecto => this.mapProjectImage(proyecto)));
   }
 
@@ -41,6 +41,10 @@ export class ProyectoService {
 
   crearProyecto(proyecto: Proyecto) {
     return this.http.post<any>(`${this.apiUrl}/proyecto`, proyecto);
+  }
+
+  actualizarProyecto(proyecto: Proyecto) {
+    return this.http.put<any>(`${this.apiUrl}/proyecto/${proyecto.id}`, proyecto);
   }
 
   borrarProyecto(id: number) {
@@ -72,7 +76,7 @@ export class ProyectoService {
   }
 
   private mapProjectImage(project: Proyecto) {
-    project.imagen =`${this.apiUrl}/imagen/${project.imagen}`;
+    project.urlImagen =`${this.apiUrl}/imagen/${project.imagen}`;
     return project;
   }
   

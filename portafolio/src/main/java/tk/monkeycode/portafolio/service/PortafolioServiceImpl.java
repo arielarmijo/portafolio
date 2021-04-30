@@ -38,11 +38,23 @@ public class PortafolioServiceImpl implements PortafolioService {
 	public Proyecto guardarProyecto(Proyecto p) {
 		return proyectoRepo.save(p);
 	}
+	
+	@Override
+	public Proyecto actualizarProyecto(Proyecto p) {
+		Proyecto proyectoViejo = proyectoRepo.findById(p.getId()).orElseThrow();
+		proyectoViejo.setImagen(p.getImagen());
+		proyectoViejo.setNombre(p.getNombre());
+		proyectoViejo.setDescripcionCorta(p.getDescripcionCorta());
+		proyectoViejo.setDescripcionLarga(p.getDescripcionLarga());
+		proyectoViejo.setUrlProyecto(p.getUrlProyecto());
+		proyectoViejo.setUrlRepositorio(p.getUrlRepositorio());
+		proyectoViejo.setCreadoEn(p.getCreadoEn());
+		return proyectoRepo.save(proyectoViejo);
+	}
 
 	@Override
 	public void borrarProyecto(int id) {
-		Proyecto p = proyectoRepo.findById(id);
-		proyectoRepo.delete(p);
+		proyectoRepo.delete(proyectoRepo.findById(id));
 	}
-
+	
 }

@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Nationalized;
@@ -17,20 +18,22 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "etiquetas")
-@Data
+@SequenceGenerator(name="etiquetaSeq", sequenceName = "etiqueta_seq", allocationSize = 1)
 public class Etiqueta {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "etiquetaSeq")
 	private Integer id;
 	
+	@Column(nullable = false, length = 50)
 	@Nationalized
-	@Column(nullable = false)
 	private String nombre;
 
 	@JsonIgnoreProperties(value = {"etiquetas"})
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "etiquetas")
 	private List<Proyecto> proyectos;
+	
 }

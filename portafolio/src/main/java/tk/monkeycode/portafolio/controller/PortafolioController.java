@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -54,6 +55,15 @@ public class PortafolioController {
 		Proyecto nuevoProyecto = portafolioService.guardarProyecto(proyecto);
 		Map<String, Object> content = new HashMap<>();
 		content.put("mensaje", "Proyecto creado con éxito.");
+		content.put("proyecto", nuevoProyecto);
+		return ResponseEntity.ok().body(content);
+	}
+	
+	@PutMapping("proyecto/{id}")
+	public ResponseEntity<Map<String, Object>> actualizarProyecto(@RequestBody Proyecto proyecto) {
+		Proyecto nuevoProyecto = portafolioService.actualizarProyecto(proyecto);
+		Map<String, Object> content = new HashMap<>();
+		content.put("mensaje", "Proyecto actualizado con éxito.");
 		content.put("proyecto", nuevoProyecto);
 		return ResponseEntity.ok().body(content);
 	}

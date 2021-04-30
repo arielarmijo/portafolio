@@ -10,8 +10,10 @@ public interface PortafolioService {
 	List<Proyecto> obtenerProyectos();
 	Proyecto buscarProyectoPorId(int id);
 	Proyecto guardarProyecto(Proyecto p);
+	Proyecto actualizarProyecto(Proyecto p);
 	void borrarProyecto(int id);
 	
 	List<Etiqueta> obtenerEtiquetas();
+	
 	
 }

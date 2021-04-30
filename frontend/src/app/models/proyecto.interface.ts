@@ -8,6 +8,7 @@ export interface Proyecto {
     urlProyecto: string;
     urlRepositorio: string;
     imagen?: string;
+    urlImagen?: string;
     creadoEn?: Date;
     etiquetas?: Etiqueta[];
 }
