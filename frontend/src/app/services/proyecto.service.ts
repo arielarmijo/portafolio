@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { map, tap} from 'rxjs/operators';
+import { catchError, map, tap} from 'rxjs/operators';
 import { Proyecto } from '../models/proyecto';
 import { environment } from 'src/environments/environment';
 
@@ -12,10 +12,14 @@ export class ProyectoService {
 
   private apiUrl = environment.apiURL;
 
+
   constructor(private http: HttpClient) { }
 
   obtenerProyectos(): Observable<Proyecto[]> {
-    return this.http.get<Proyecto[]>(`${this.apiUrl}/proyectos`).pipe(map(proyectos => this.mapProjectImages(proyectos)));
+    return this.http.get<Proyecto[]>(`${this.apiUrl}/proyectos`)
+                    .pipe(
+                      map(proyectos => this.mapProjectImages(proyectos))
+                    );
   }
 
   obtenerProyectoPorId(id: number) {
@@ -35,6 +39,7 @@ export class ProyectoService {
   borrarProyecto(id: number) {
     return this.http.delete<any>(`${this.apiUrl}/proyecto/${id}`);
   }
+
 
   private mapProjectImages(proyectos: Proyecto[]) {
     return proyectos.map(p => this.mapProjectImage(p));

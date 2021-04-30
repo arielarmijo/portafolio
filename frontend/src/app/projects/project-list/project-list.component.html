@@ -3,7 +3,7 @@
     <app-spinner *ngIf="!proyectos"></app-spinner>
 
     <div class="alert alert-danger" *ngIf="proyectos && proyectos.length == 0">
-        <p class="m-2 text-center">No existen proyectos.</p>
+        <p class="m-2 text-center">{{mensaje}}</p>
     </div>
 
     <div class="row g-4" *ngIf="proyectos && proyectos.length > 0">

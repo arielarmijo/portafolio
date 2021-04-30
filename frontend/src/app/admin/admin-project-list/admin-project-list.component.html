@@ -9,15 +9,15 @@
         </button>
     </div>
 
-    <div *ngIf="!proyectos">
+    <div *ngIf="cargando">
         <app-spinner></app-spinner>
     </div>
 
-    <div class="alert alert-danger" *ngIf="proyectos && proyectos.length == 0">
-        <p class="m-2 text-center">No existen proyectos.</p>
+    <div class="alert alert-danger" *ngIf="proyectos.length == 0">
+        <p class="m-2 text-center">{{mensaje}}</p>
     </div>
 
-    <div *ngIf="proyectos && proyectos.length > 0">
+    <div *ngIf="proyectos.length > 0">
         <table class="table">
             <thead class="table-dark">
                 <tr>
