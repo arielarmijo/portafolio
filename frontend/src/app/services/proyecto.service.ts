@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { catchError, map, tap} from 'rxjs/operators';
+import { BehaviorSubject, concat, Observable, of, Subject, throwError } from 'rxjs';
+import { catchError, concatMap, delay, map, retryWhen, take, tap} from 'rxjs/operators';
 import { Proyecto } from '../models/proyecto.interface';
 import { environment } from 'src/environments/environment';
 import { ProyectoWrapper } from '../models/proyecto-wrapper.interface';
@@ -22,7 +22,16 @@ export class ProyectoService {
   obtenerProyectos(): Observable<ProyectoWrapper> {
     this.http.get<Proyecto[]>(`${this.apiUrl}/proyectos`)
              .pipe(
-               map(proyectos => this.mapProjectImages(proyectos))
+               map(proyectos => this.mapProjectImages(proyectos)),
+               retryWhen(errors => errors.pipe(
+                                            concatMap((e, i) => {
+                                              if (i > 3) {
+                                                return throwError(e);
+                                              }
+                                              return of(e).pipe(delay(5000));
+                                            })
+                                            )
+                )
              ).subscribe(proyectos => this.cargarProyectos(proyectos),
                          error => this.errorHandler(error)
              );
