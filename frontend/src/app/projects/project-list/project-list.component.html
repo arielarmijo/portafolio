@@ -10,9 +10,9 @@
 
         <div class="col" *ngFor="let proyecto of proyectos">
 
-            <div class="card text-white flip-card" (click)="voltear()">
+            <div  class="card text-white flip-card" (click)="voltear(proyecto.id)">
 
-                <div class="flip-card-inner shadow" [ngClass]="flip ? 'voltear' : ''">
+                <div #tref [id]="proyecto.id" class="flip-card-inner shadow">
 
                     <img [src]="proyecto.urlImagen" class="flip-card-front" [alt]="proyecto.nombre"/>
 

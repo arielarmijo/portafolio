@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ProyectoWrapper } from 'src/app/models/proyecto-wrapper.interface';
 import { Proyecto } from 'src/app/models/proyecto.interface';
@@ -11,10 +11,11 @@ import { ProyectoService } from 'src/app/services/proyecto.service';
 })
 export class ProjectListComponent implements OnInit, OnDestroy {
 
+  @ViewChildren('tref') tref!: QueryList<ElementRef>;
+
   proyectos: Proyecto[] = [];
   cargando = true;
   mensaje!: string;
-  flip = false;
 
   subscripcion!: Subscription; 
 
@@ -34,8 +35,11 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     this.cargando = false;
   }
 
-  voltear() {
-    this.flip = !this.flip;
+  voltear(id: number) {
+    const cardClassList = this.tref.find(i => i.nativeElement.id == id)?.nativeElement.classList as DOMTokenList;
+    if (cardClassList.contains('voltear'))
+      cardClassList.remove('voltear');
+    else
+      cardClassList.add('voltear');
   }
-
 }

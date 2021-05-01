@@ -1,7 +1,7 @@
 import { Etiqueta } from "./etiqueta.interface";
 
 export interface Proyecto {
-    id?: number;
+    id: number;
     nombre: string;
     descripcionCorta: string;
     descripcionLarga?: string;
