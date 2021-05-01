@@ -12,8 +12,7 @@
   width: 315px;
   height: 195px;
   border: 1px solid #f1f1f1;
-  /*perspective: 1000px;   Remove this if you don't want the 3D effect */
-  
+  perspective: 1000px;   /*Remove this if you don't want the 3D effect */
   user-select: none;
 }
 
@@ -23,11 +22,12 @@
   height: 100%;
   transition: transform 0.8s;
   transform-style: preserve-3d;
+  
 }
 
-.flip-card:hover .flip-card-inner {
-    transform: rotateY(180deg);
-  }
+.voltear {
+  transform: rotateY(180deg);
+}
 
 .flip-card-front, .flip-card-back {
   position: absolute;
@@ -39,6 +39,7 @@
 
 .flip-card-front {
   background-color: #dee2e6;
+  cursor: zoom-in;
 }
 
 .flip-card-back {
@@ -47,6 +48,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  cursor: zoom-out;
 }
 
 .card-title, .card-text {
@@ -66,4 +68,5 @@
 button {
   display: inline;
   margin: 0 auto;
+  padding: 0 0.75rem;
 }

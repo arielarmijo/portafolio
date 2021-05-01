@@ -14,6 +14,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   proyectos: Proyecto[] = [];
   cargando = true;
   mensaje!: string;
+  flip = false;
 
   subscripcion!: Subscription; 
 
@@ -31,6 +32,10 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     this.proyectos= resp.proyectos;
     this.mensaje = resp.estado;
     this.cargando = false;
+  }
+
+  voltear() {
+    this.flip = !this.flip;
   }
 
 }
