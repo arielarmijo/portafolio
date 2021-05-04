@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-lg-6 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="text-center">Login</h1>
+                </div>
+                <div class="card-body">
+                    <div *ngIf="logout" class="my-4">
+                        <p class="alert alert-success text-center">Se ha cerrado la sesión.</p>
+                    </div>
+                    <div *ngIf="error" class="my-4">
+                        <p class="alert alert-danger text-center">Usuario y/o contraseña inválidos.</p>
+                    </div>
+                    <form (ngSubmit)="submit()" #loginForm="ngForm">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="Nombre usuario"
+                                   [(ngModel)]="credentials.username" name="username">
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" class="form-control" placeholder="Contraseña"
+                                   [(ngModel)]="credentials.password" name="password">
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

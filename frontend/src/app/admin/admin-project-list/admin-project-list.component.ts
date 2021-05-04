@@ -38,7 +38,6 @@ export class AdminProjectListComponent implements OnInit, OnDestroy {
     }).then(result => {
       if (result.isConfirmed) {
         this.ps.borrarProyecto(proyecto.id as number).subscribe(resp => {
-          console.log(resp);
           this.ps.obtenerProyectos().subscribe(resp => this.proyectos = resp.proyectos);
         });
       }

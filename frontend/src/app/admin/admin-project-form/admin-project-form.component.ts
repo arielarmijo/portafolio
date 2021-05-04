@@ -90,7 +90,7 @@ export class AdminProjectFormComponent implements OnInit {
     // Sube la foto al servidor
     const file = this.projectForm.get('file')?.value;
     if (file) {
-      this.ps.subirFotoProyecto(file).subscribe(resp => console.log(resp));
+      this.ps.subirFotoProyecto(file).subscribe();
     }
 
     // Crea proyecto

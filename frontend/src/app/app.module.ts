@@ -12,7 +12,8 @@ import { AboutComponent } from './about/about.component';
 import { SpinnerComponent } from './common/spinner/spinner.component';
 import { AdminProjectListComponent } from './admin/admin-project-list/admin-project-list.component';
 import { AdminProjectFormComponent } from './admin/admin-project-form/admin-project-form.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -24,13 +25,15 @@ import { ReactiveFormsModule } from '@angular/forms';
     ProjectItemComponent,
     AboutComponent,
     AdminProjectListComponent,
-    AdminProjectFormComponent    
+    AdminProjectFormComponent,
+    LoginComponent    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
