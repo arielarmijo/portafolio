@@ -6,6 +6,11 @@
   align-items: center;
 }
 
+#navbarNav {
+  padding-right: 0.75rem;
+  padding-left: 0.75rem;
+}
+
 .nav-item {
   text-align: center;
   position: relative;
