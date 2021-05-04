@@ -50,6 +50,11 @@ public class PortafolioController {
 		return portafolioService.buscarProyectoPorId(id);
 	}
 	
+	@GetMapping("/proyectos/buscar")
+	public List<Proyecto> buscarProyectos(@RequestParam String termino) {
+		return portafolioService.buscarProyectos(termino);
+	}
+	
 	@PostMapping("/proyecto")
 	public ResponseEntity<Map<String, Object>> crearProyecto(@RequestBody Proyecto proyecto) {
 		Proyecto nuevoProyecto = portafolioService.guardarProyecto(proyecto);

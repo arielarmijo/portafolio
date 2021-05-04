@@ -59,8 +59,8 @@ export class AuthService {
     return sessionStorage.getItem('credentials') !== null;
   }
 
-  getCredentials() {
-    return JSON.parse(sessionStorage.getItem('credentials')as string);
+  getCredentials(): Credentials {
+    return JSON.parse(sessionStorage.getItem('credentials') as string);
   }
 
 }

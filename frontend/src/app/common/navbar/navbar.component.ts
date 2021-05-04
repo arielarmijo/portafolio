@@ -39,7 +39,7 @@ export class NavbarComponent implements OnInit {
   }
 
   buscar(termino: string) {
-    console.log(termino);
+    this.proyectoService.buscarProyecto(termino);
   }
 
   logout(): void {

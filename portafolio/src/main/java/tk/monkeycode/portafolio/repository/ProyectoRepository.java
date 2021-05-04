@@ -9,9 +9,11 @@ import tk.monkeycode.portafolio.domain.Proyecto;
 
 public interface ProyectoRepository extends CrudRepository<Proyecto, Integer> {
 	
-	@Query("from Proyecto")
+	@Query("from Proyecto p order by p.creadoEn desc")
 	List<Proyecto> findAllProyects();
 	
 	Proyecto findById(int id);
+	
+	List<Proyecto> findByNombreContainingIgnoreCase(String term);
 
 }

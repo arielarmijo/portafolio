@@ -56,5 +56,10 @@ public class PortafolioServiceImpl implements PortafolioService {
 	public void borrarProyecto(int id) {
 		proyectoRepo.delete(proyectoRepo.findById(id));
 	}
+
+	@Override
+	public List<Proyecto> buscarProyectos(String termino) {
+		return proyectoRepo.findByNombreContainingIgnoreCase(termino);
+	}
 	
 }

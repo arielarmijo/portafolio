@@ -121,7 +121,7 @@ export class AdminProjectFormComponent implements OnInit {
         error => {
           Swal.fire({
             title: 'Error',
-            text: `${error.message}`,
+            text: `${error.message.message}`,
             icon: 'error'
           });
         }

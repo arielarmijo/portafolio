@@ -6,15 +6,14 @@ import { Proyecto } from '../models/proyecto.interface';
 import { environment } from 'src/environments/environment';
 import { ProyectoWrapper } from '../models/proyecto-wrapper.interface';
 import { AuthService } from './auth.service';
-import { Credentials } from '../models/credentials.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProyectoService {
 
-  private apiUrl = environment.apiURL + '/api';
-  private proyectosSub$ = new Subject<ProyectoWrapper>();
+  private apiUrl = `${environment.apiURL}/api`;
+  private proyectosSub$ = new BehaviorSubject<ProyectoWrapper>({error: false, estado: '', proyectos: []});
   private proyectos$ = this.proyectosSub$.asObservable();
 
   constructor(private http: HttpClient, private auth: AuthService) { }
@@ -36,19 +35,28 @@ export class ProyectoService {
   subirFotoProyecto(file: File) {
     const formData = new FormData();
     formData.append('imagen', file);
-    return this.http.post(`${this.apiUrl}/proyecto/img`, formData, {headers: this.authorizationHeader(this.auth.getCredentials())});
+    return this.http.post(`${this.apiUrl}/proyecto/img`, formData, {headers: this.authorizationHeader()});
   }
 
   crearProyecto(proyecto: Proyecto) {
-    return this.http.post<any>(`${this.apiUrl}/proyecto`, proyecto, {headers: this.authorizationHeader(this.auth.getCredentials())});
+    return this.http.post<any>(`${this.apiUrl}/proyecto`, proyecto, {headers: this.authorizationHeader()});
   }
 
   actualizarProyecto(proyecto: Proyecto) {
-    return this.http.put<any>(`${this.apiUrl}/proyecto/${proyecto.id}`, proyecto, {headers: this.authorizationHeader(this.auth.getCredentials())});
+    return this.http.put<any>(`${this.apiUrl}/proyecto/${proyecto.id}`, proyecto, {headers: this.authorizationHeader()});
   }
 
   borrarProyecto(id: number) {
-    return this.http.delete<any>(`${this.apiUrl}/proyecto/${id}`, {headers: this.authorizationHeader(this.auth.getCredentials())});
+    return this.http.delete<any>(`${this.apiUrl}/proyecto/${id}`, {headers: this.authorizationHeader()});
+  }
+
+  buscarProyecto(termino: string) {
+    console.log(termino);
+    this.http.get<Proyecto[]>(`${this.apiUrl}/proyectos/buscar`, {params: {termino: termino}}).pipe(
+      map(proyectos => this.mapProjectImages(proyectos))
+    ).subscribe(proyectos => this.cargarProyectos(proyectos),
+                error => this.errorHandler(error)
+    );
   }
 
   private cargarProyectos(proyectos: Proyecto[]): void {
@@ -79,7 +87,8 @@ export class ProyectoService {
     return project;
   }
 
-  private authorizationHeader(credentials: Credentials) {
+  private authorizationHeader() {
+    const credentials = this.auth.getCredentials()
     return new HttpHeaders({ authorization: 'Basic ' + btoa(credentials.username + ':' + credentials.password) });
   }
   

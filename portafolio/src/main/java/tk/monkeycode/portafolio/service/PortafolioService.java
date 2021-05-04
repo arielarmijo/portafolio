@@ -13,6 +13,8 @@ public interface PortafolioService {
 	Proyecto actualizarProyecto(Proyecto p);
 	void borrarProyecto(int id);
 	
+	List<Proyecto> buscarProyectos(String termino);
+	
 	List<Etiqueta> obtenerEtiquetas();
 	
 	
