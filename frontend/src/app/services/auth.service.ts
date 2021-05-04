@@ -17,7 +17,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(credentials: Credentials): Promise<number> {
+  login(credentials: Credentials) {
     const myHeaders = new Headers();
     myHeaders.set("Content-Type", "application/x-www-form-urlencoded");
 

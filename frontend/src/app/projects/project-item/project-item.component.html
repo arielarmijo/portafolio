@@ -1,12 +1,14 @@
 <div class="animated fadeIn">
 
-   <div *ngIf="!proyecto">
+   <div *ngIf="!proyecto && !error">
        <app-spinner></app-spinner>
    </div>
 
-    <div *ngIf="proyecto" class="container">
+    <div class="container">
+        <app-alert [mensaje]="error" [mostrar]="error != null" tipo="alert-danger"></app-alert>
+    </div>
 
-        
+    <div *ngIf="proyecto" class="container">
 
         <div class="card shadow pb-4 col-xl-10 mx-auto">
             

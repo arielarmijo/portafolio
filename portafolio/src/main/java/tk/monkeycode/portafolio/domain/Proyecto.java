@@ -58,7 +58,7 @@ public class Proyecto {
 	private LocalDate creadoEn;
 	
 	@JsonIgnoreProperties(value = {"proyectos"})
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	@JoinTable(name = "proyectos_etiquetas",
 			   joinColumns = @JoinColumn(name = "proyecto_id"),
 			   inverseJoinColumns = @JoinColumn(name = "etiqueta_id")) 

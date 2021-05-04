@@ -12,14 +12,19 @@ import { ProyectoService } from 'src/app/services/proyecto.service';
 export class ProjectItemComponent implements OnInit {
 
   proyecto!: Proyecto;
+  error!: string;
 
   constructor(private proyectoService: ProyectoService,
-              private activatedRouter: ActivatedRoute,
-              private location: Location) { }
+    private activatedRouter: ActivatedRoute,
+    private location: Location) { }
 
   ngOnInit(): void {
     this.activatedRouter.params.subscribe(p => {
-      this.proyectoService.obtenerProyectoPorId(p['id']).subscribe(proyecto => this.proyecto = proyecto);
+      this.proyectoService.obtenerProyectoPorId(p['id']).subscribe(
+        proyecto => this.proyecto = proyecto,
+        error => {
+          this.error = 'Error de conexión.';
+        });
     });
   }
 

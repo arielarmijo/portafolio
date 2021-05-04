@@ -14,6 +14,9 @@ import { AdminProjectListComponent } from './admin/admin-project-list/admin-proj
 import { AdminProjectFormComponent } from './admin/admin-project-form/admin-project-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
+import { CardsComponent } from './common/cards/cards.component';
+import { TableComponent } from './common/table/table.component';
+import { AlertComponent } from './common/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import { LoginComponent } from './login/login.component';
     AboutComponent,
     AdminProjectListComponent,
     AdminProjectFormComponent,
-    LoginComponent    
+    LoginComponent,
+    CardsComponent,
+    TableComponent,
+    AlertComponent    
   ],
   imports: [
     BrowserModule,

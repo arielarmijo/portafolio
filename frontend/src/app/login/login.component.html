@@ -6,12 +6,8 @@
                     <h1 class="text-center">Login</h1>
                 </div>
                 <div class="card-body">
-                    <div *ngIf="logout" class="my-4">
-                        <p class="alert alert-success text-center">Se ha cerrado la sesión.</p>
-                    </div>
-                    <div *ngIf="error" class="my-4">
-                        <p class="alert alert-danger text-center">Usuario y/o contraseña inválidos.</p>
-                    </div>
+                    <app-alert [mensaje]="message" [mostrar]="logout" tipo="alert-success"></app-alert>
+                    <app-alert [mensaje]="message" [mostrar]="error" tipo="alert-danger"></app-alert>
                     <form (ngSubmit)="submit()" #loginForm="ngForm">
                         <div class="mb-3">
                             <input type="text" class="form-control" placeholder="Nombre usuario"

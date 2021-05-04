@@ -23,7 +23,8 @@ export class ProyectoService {
     this.http.get<Proyecto[]>(`${this.apiUrl}/proyectos`)
              .pipe(
                map(proyectos => this.mapProjectImages(proyectos))
-             ).subscribe(proyectos => this.cargarProyectos(proyectos)
+             ).subscribe(proyectos => this.cargarProyectos(proyectos),
+                         error => this.errorHandler(error)
              );
     return this.proyectos$;
   }

@@ -37,16 +37,24 @@ export class AdminProjectListComponent implements OnInit, OnDestroy {
       icon: "warning"
     }).then(result => {
       if (result.isConfirmed) {
-        this.ps.borrarProyecto(proyecto.id as number).subscribe(resp => {
-          this.ps.obtenerProyectos().subscribe(resp => this.proyectos = resp.proyectos);
-        });
+        this.ps.borrarProyecto(proyecto.id as number).subscribe(
+          resp => {
+            this.ps.obtenerProyectos().subscribe(resp => this.proyectos = resp.proyectos);
+          },
+          error => {
+            Swal.fire({
+              title: 'Error',
+              text: error.error.message,
+              icon: 'error'
+            });
+          });
       }
     });
   }
 
 
   private cargarProyectos(resp: ProyectoWrapper): void {
-    this.proyectos= resp.proyectos;
+    this.proyectos = resp.proyectos;
     this.mensaje = resp.estado;
     this.cargando = false;
   }

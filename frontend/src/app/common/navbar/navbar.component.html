@@ -20,8 +20,11 @@
                     <label for="search" (click)="toggleSearch()">
                         <i class="fas fa-search"></i>
                     </label>
-                    <input #search id="search" type="search" class="form-control" placeholder="Buscar..."
+                    <input #search id="search" type="search" class="form-control" placeholder="Buscar..." list="nombres"
                         [hidden]="hideSearchInput" (keyup.enter)="buscar(search.value)" />
+                    <datalist id="nombres">
+                        <option *ngFor="let proyecto of proyectos">{{proyecto.nombre}}</option>
+                    </datalist>
                 </div>
             </li>
             <li *ngIf="isAuthenticated" class="nav-item" data-bs-toggle="collapse"
