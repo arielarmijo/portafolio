@@ -14,14 +14,21 @@ export class AdminProjectListComponent implements OnInit, OnDestroy {
 
   proyectos: Proyecto[] = [];
   cargando = true;
-  mensaje!: string;
+  mensaje = 'No hay proyectos.';
 
   subscripcion!: Subscription;
 
   constructor(private ps: ProyectoService) { }
 
   ngOnInit(): void {
-    this.subscripcion = this.ps.obtenerProyectos().subscribe(resp => this.cargarProyectos(resp));
+    this.subscripcion = this.ps.obtenerProyectos().subscribe(resp => {
+      this.proyectos = resp;
+      this.cargando = false;
+    },
+    error => {
+      this.cargando = false;
+      this.mensaje = error.statusText;
+    });
   }
 
   ngOnDestroy(): void {
@@ -39,7 +46,7 @@ export class AdminProjectListComponent implements OnInit, OnDestroy {
       if (result.isConfirmed) {
         this.ps.borrarProyecto(proyecto.id as number).subscribe(
           resp => {
-            this.ps.obtenerProyectos().subscribe(resp => this.proyectos = resp.proyectos);
+            this.ps.obtenerProyectos().subscribe(resp => this.proyectos = resp);
           },
           error => {
             Swal.fire({
@@ -52,11 +59,12 @@ export class AdminProjectListComponent implements OnInit, OnDestroy {
     });
   }
 
-
   private cargarProyectos(resp: ProyectoWrapper): void {
+    console.log('test', resp);
+
     this.proyectos = resp.proyectos;
     this.mensaje = resp.estado;
-    this.cargando = false;
+    //this.cargando = tr;
   }
 
 }

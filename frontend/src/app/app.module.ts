@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +18,7 @@ import { LoginComponent } from './login/login.component';
 import { CardsComponent } from './common/cards/cards.component';
 import { TableComponent } from './common/table/table.component';
 import { AlertComponent } from './common/alert/alert.component';
+import { TagInputModule } from '@vpetrusevici/ngx-chips';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { AlertComponent } from './common/alert/alert.component';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    TagInputModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -8,7 +8,7 @@
 
         <div class="card-body">
 
-            <form [formGroup]="projectForm" (ngSubmit)="crearProyecto()">
+            <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
 
                 <div class="row">
                     <div class="col-lg-4">
@@ -59,6 +59,18 @@
                         <label for="urlRepositorio" class="form-label">Url repositorio:</label>
                         <input id="urlRepositorio" class="form-control"
                                formControlName="urlRepositorio"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label for="tags" class="form-label">Etiquetas:</label>
+                        <tag-input id="tags" class="form-control" formControlName="etiquetas"
+                                   [identifyBy]="'id'" [displayBy]="'nombre'" [secondaryPlaceholder]="'Ingrese etiquetas'">
+                                <tag-input-dropdown [identifyBy]="'id'" [displayBy]="'nombre'"
+                                     [autocompleteItems]="etiquetas"></tag-input-dropdown>        
+                        </tag-input>
+                        
                     </div>
                 </div>
 

@@ -15,24 +15,25 @@ export class ProjectListComponent implements OnInit, OnDestroy {
 
   proyectos: Proyecto[] = [];
   cargando = true;
-  mensaje!: string;
+  mensaje = 'No hay proyectos.';
 
   subscripcion!: Subscription; 
 
   constructor(private ps: ProyectoService) { }
   
   ngOnInit(): void {
-    this.subscripcion = this.ps.obtenerProyectos().subscribe(resp => this.cargarProyectos(resp));
+    this.subscripcion = this.ps.obtenerProyectos().subscribe(resp => {
+      this.proyectos = resp;
+      this.cargando = false;
+    },
+    error => {
+      this.cargando = false;
+      this.mensaje = error.statusText;
+    });
   }
 
   ngOnDestroy(): void {
     this.subscripcion.unsubscribe();
-  }
-
-  private cargarProyectos(resp: ProyectoWrapper): void {
-    this.proyectos= resp.proyectos;
-    this.mensaje = resp.estado;
-    this.cargando = false;
   }
 
   voltear(id: number) {
@@ -42,4 +43,5 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     else
       cardClassList.add('voltear');
   }
+  
 }

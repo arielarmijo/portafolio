@@ -1,7 +1,7 @@
 package tk.monkeycode.portafolio.domain;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,8 +18,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Nationalized;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
 
@@ -57,11 +55,11 @@ public class Proyecto {
 	@Column(nullable = true)
 	private LocalDate creadoEn;
 	
-	@JsonIgnoreProperties(value = {"proyectos"})
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	//@JsonIgnoreProperties(value = {"proyectos"})
+	@ManyToMany
 	@JoinTable(name = "proyectos_etiquetas",
 			   joinColumns = @JoinColumn(name = "proyecto_id"),
 			   inverseJoinColumns = @JoinColumn(name = "etiqueta_id")) 
-	private List<Etiqueta> etiquetas;
+	private Set<Etiqueta> etiquetas;
 
 }

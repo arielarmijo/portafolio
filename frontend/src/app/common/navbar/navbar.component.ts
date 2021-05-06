@@ -1,5 +1,7 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { Proyecto } from 'src/app/models/proyecto.interface';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProyectoService } from 'src/app/services/proyecto.service';
@@ -9,7 +11,7 @@ import { ProyectoService } from 'src/app/services/proyecto.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
 
   @Input('titulo') titulo?: string;
 
@@ -18,14 +20,18 @@ export class NavbarComponent implements OnInit {
   hideSearchInput = true;
   isAuthenticated!: boolean;
   proyectos!: Proyecto[];
+  private destroy$ = new Subject<void>();
   
-  constructor(private router: Router, private auth: AuthService, private proyectoService: ProyectoService) {
-    
-  }
+  constructor(private router: Router, private auth: AuthService, private proyectoService: ProyectoService) { }
 
   ngOnInit(): void {
-    this.auth.getStatus().subscribe(resp => this.isAuthenticated = resp);
-    this.proyectoService.obtenerProyectos().subscribe(resp => this.proyectos = resp.proyectos);
+    this.auth.getStatus().pipe(takeUntil(this.destroy$)).subscribe(resp => this.isAuthenticated = resp);
+    this.proyectoService.obtenerProyectos().pipe(takeUntil(this.destroy$)).subscribe(resp => this.proyectos = resp);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   toggleSearch(): void {
@@ -43,7 +49,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout(): void {
-    this.auth.logout().subscribe(resp => this.router.navigate(['/login'], {queryParams: {logout: true}}));
+    this.auth.logout().pipe(takeUntil(this.destroy$)).subscribe(resp => this.router.navigate(['/login'], {queryParams: {logout: true}}));
   }
 
 }

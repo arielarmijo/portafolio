@@ -1,32 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Proyecto } from 'src/app/models/proyecto.interface';
 import { ProyectoService } from 'src/app/services/proyecto.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-project-item',
   templateUrl: './project-item.component.html',
   styleUrls: ['./project-item.component.css']
 })
-export class ProjectItemComponent implements OnInit {
+export class ProjectItemComponent implements OnInit, OnDestroy {
 
   proyecto!: Proyecto;
   error!: string;
+  subscription$!: Subscription;
 
-  constructor(private proyectoService: ProyectoService,
-    private activatedRouter: ActivatedRoute,
-    private location: Location) { }
+  constructor(private proyectoService: ProyectoService, private activatedRouter: ActivatedRoute, private location: Location) { }
 
   ngOnInit(): void {
-    this.activatedRouter.params.subscribe(p => {
+    this.subscription$ = this.activatedRouter.params.subscribe(p => {
       this.proyectoService.obtenerProyectoPorId(p['id']).subscribe(
         proyecto => this.proyecto = proyecto,
         error => {
-          this.error = 'Error de conexión.';
+          console.log(error);
+          this.error = `${error.status}: ${error.error.message}`;
         });
     });
   }
+
+  ngOnDestroy(): void {
+    this.subscription$.unsubscribe();
+  }
+
 
   goBack() {
     this.location.back();

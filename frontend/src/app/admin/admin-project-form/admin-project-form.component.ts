@@ -1,7 +1,9 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
+import { Etiqueta } from 'src/app/models/etiqueta.interface';
 import { Proyecto } from 'src/app/models/proyecto.interface';
 import { ProyectoService } from 'src/app/services/proyecto.service';
 import Swal from 'sweetalert2';
@@ -11,7 +13,7 @@ import Swal from 'sweetalert2';
   templateUrl: './admin-project-form.component.html',
   styleUrls: ['./admin-project-form.component.css']
 })
-export class AdminProjectFormComponent implements OnInit {
+export class AdminProjectFormComponent implements OnInit, OnDestroy {
 
   projectForm!: FormGroup;
   action = 'Crear';
@@ -19,29 +21,40 @@ export class AdminProjectFormComponent implements OnInit {
   imagen!: string;
   hoy: string;
   id!: number;
+  etiquetas!: Etiqueta[];
+  // https://codefoundry.nl/blogs/rxjs-subscriptions
+  private destroy$ = new Subject<void>();
 
   constructor(private fb: FormBuilder, private ps: ProyectoService, private ar: ActivatedRoute, private router: Router) {
     this.hoy = (new Date()).toISOString().split('T')[0];
-    ar.params.subscribe(params => {
+    ar.params.pipe(takeUntil(this.destroy$)).subscribe(params => {
       const id = params.id;
       if (id) {
         this.id = id;        
-        this.ps.obtenerProyectoPorId(id).subscribe(proyecto => this.updateForm(proyecto));
+        this.ps.obtenerProyectoPorId(id).pipe(takeUntil(this.destroy$)).subscribe(proyecto => this.updateForm(proyecto));
       }
     });
+    this.obtenerEtiquetas();
   }
+  
 
   ngOnInit(): void {
     this.projectForm = this.fb.group({
-      imagen: [''],
-      file: [null],
-      nombre: [''],
-      descripcionCorta: [''],
-      descripcionLarga: [''],
-      urlProyecto: [''],
-      urlRepositorio: [''],
+      imagen: [],
+      file: [],
+      nombre: [],
+      descripcionCorta: [],
+      descripcionLarga: [],
+      urlProyecto: [],
+      urlRepositorio: [],
+      etiquetas: [],
       creadoEn: [this.hoy]
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   vistaPrevia(event: any) {
@@ -85,69 +98,87 @@ export class AdminProjectFormComponent implements OnInit {
 
   }
 
-  crearProyecto() {
+  onSubmit() {
     
     // Sube la foto al servidor
     const file = this.projectForm.get('file')?.value;
     if (file) {
-      this.ps.subirFotoProyecto(file).subscribe();
+      this.ps.subirFotoProyecto(file).pipe(takeUntil(this.destroy$)).subscribe();
     }
 
     // Crea proyecto
     if (this.action == 'Crear') {
-      this.ps.crearProyecto(this.mapForm2Project()).subscribe(
-        resp => {
-          Swal.fire({
-            title: 'Proyecto creado con éxito',
-            text: '¿Crear otro proyecto?',
-            icon: 'success',
-            showConfirmButton: true,
-            confirmButtonText: 'Sí',
-            showCancelButton: true,
-            cancelButtonText: 'No'
-          }).then((result) => {
-            if (result.isConfirmed) {
-              this.imageUrl = '';
-              this.projectForm.reset();
-              setTimeout(() => {
-                window.scrollTo(0,0);
-              }, 250);
-            }
-            if (result.isDismissed) {
-              this.router.navigateByUrl('/admin');
-            }
-          });
-        },
-        error => {
-          Swal.fire({
-            title: 'Error',
-            text: `${error.message.message}`,
-            icon: 'error'
-          });
-        }
-      );
+      this.crearProyecto();
     }
 
     // Actualiza  proyecto
     if (this.action == 'Editar') {
-      this.ps.actualizarProyecto(this.mapForm2Project()).subscribe(
-        resp => {
-          Swal.fire({
-            title: 'Proyecto',
-            text: `${resp.mensaje}`,
-            icon: 'success'
-          }).then(() => this.router.navigateByUrl('/admin'));
-        },
-        error => {
-          Swal.fire({
-            title: 'Error',
-            text: `${error.message}`,
-            icon: 'error'
-          });
-        }
-      );
+      this.actualizarProyecto();
     }
 
+  }
+
+  private crearProyecto() {
+    const suba = this.ps.crearProyecto(this.mapForm2Project()).pipe(takeUntil(this.destroy$)).subscribe(
+      resp => {
+        Swal.fire({
+          title: 'Proyecto creado con éxito',
+          text: '¿Crear otro proyecto?',
+          icon: 'success',
+          showConfirmButton: true,
+          confirmButtonText: 'Sí',
+          showCancelButton: true,
+          cancelButtonText: 'No'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.imageUrl = '';
+            this.obtenerEtiquetas();
+            this.projectForm.reset();
+            setTimeout(() => {
+              window.scrollTo(0,0);
+            }, 250);
+          }
+          if (result.isDismissed) {
+            this.router.navigateByUrl('/admin');
+          }
+        });
+      },
+      error => {
+        console.log(error);
+        Swal.fire({
+          title: 'Error',
+          text: `${error.error.message}`,
+          icon: 'error'
+        });
+      }
+    );
+  }
+
+  private obtenerEtiquetas() {
+    this.ps.obtenerEtiquetas()
+      .pipe(
+        map(resp => resp.map(item => ({id: item.id, nombre: item.nombre}))),
+        takeUntil(this.destroy$))
+      .subscribe(resp => this.etiquetas = resp);
+  }
+
+  private actualizarProyecto() {
+    this.ps.actualizarProyecto(this.mapForm2Project()).pipe(takeUntil(this.destroy$)).subscribe(
+      resp => {
+        Swal.fire({
+          title: 'Proyecto',
+          text: `${resp.mensaje}`,
+          icon: 'success'
+        }).then(() => this.router.navigateByUrl('/admin'));
+      },
+      error => {
+        Swal.fire({
+          title: 'Error',
+          text: `${error.message}`,
+          icon: 'error'
+        });
+      }
+    );
   }
 
   private mapForm2Project(): Proyecto {
@@ -159,6 +190,7 @@ export class AdminProjectFormComponent implements OnInit {
       urlProyecto: this.projectForm.get('urlProyecto')?.value,
       urlRepositorio: this.projectForm.get('urlRepositorio')?.value,
       imagen: this.imagen,
+      etiquetas: this.projectForm.get('etiquetas')?.value?.map((tag: any) => (typeof tag.id === 'string') ? {nombre: tag.nombre} : tag),
       creadoEn: this.projectForm.get('creadoEn')?.value
     }
   }
@@ -172,6 +204,7 @@ export class AdminProjectFormComponent implements OnInit {
     this.projectForm.get('descripcionLarga')?.setValue(proyecto.descripcionLarga);
     this.projectForm.get('urlProyecto')?.setValue(proyecto.urlProyecto);
     this.projectForm.get('urlRepositorio')?.setValue(proyecto.urlRepositorio);
+    this.projectForm.get('etiquetas')?.setValue(proyecto.etiquetas);
     this.projectForm.get('creadoEn')?.setValue(proyecto.creadoEn);
   }
   
