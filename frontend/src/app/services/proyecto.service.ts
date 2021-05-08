@@ -47,13 +47,21 @@ export class ProyectoService {
     return this.http.delete<any>(`${this.apiUrl}/proyecto/${id}`, {headers: this.authorizationHeader()});
   }
 
-  buscarProyecto(termino: string) {
-    this.http.get<Proyecto[]>(`${this.apiUrl}/proyectos/buscar`, {params: {termino: termino}})
-      .pipe(map(proyectos => this.mapProjectImages(proyectos)))
-      .subscribe(proyectos => this.proyectosSub$.next(proyectos));
+  buscarTodosProyectos(): Observable<Proyecto[]> {
+    return this.http.get<Proyecto[]>(`${this.apiUrl}/proyectos`)
+      .pipe(
+        map(proyectos => this.mapProjectImages(proyectos))
+      );
   }
 
-  obtenerEtiquetas() {
+  buscarProyectos(termino: string | null) {
+    return this.http.get<Proyecto[]>(`${this.apiUrl}/proyectos/buscar`, {params: {search: termino as string}})
+      .pipe(
+        map(proyectos => this.mapProjectImages(proyectos))
+      );
+  }
+
+  buscarEtiquetas() {
     return this.http.get<any[]>(`${this.apiUrl}/etiquetas`);
   }
 

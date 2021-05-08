@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Proyecto } from 'src/app/models/proyecto.interface';
 import { ProyectoService } from 'src/app/services/proyecto.service';
 import { Subscription } from 'rxjs';
@@ -16,7 +16,7 @@ export class ProjectItemComponent implements OnInit, OnDestroy {
   error!: string;
   subscription$!: Subscription;
 
-  constructor(private proyectoService: ProyectoService, private activatedRouter: ActivatedRoute, private location: Location) { }
+  constructor(private proyectoService: ProyectoService, private activatedRouter: ActivatedRoute, private location: Location, private router: Router) { }
 
   ngOnInit(): void {
     this.subscription$ = this.activatedRouter.params.subscribe(p => {
@@ -36,6 +36,11 @@ export class ProjectItemComponent implements OnInit, OnDestroy {
 
   goBack() {
     this.location.back();
+  }
+
+  buscar(termino: string) {
+    console.log(termino);
+    this.router.navigate(['/proyectos'], {queryParams: {search: termino}});
   }
 
 }

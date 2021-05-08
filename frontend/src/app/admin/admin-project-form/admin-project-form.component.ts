@@ -155,7 +155,7 @@ export class AdminProjectFormComponent implements OnInit, OnDestroy {
   }
 
   private obtenerEtiquetas() {
-    this.ps.obtenerEtiquetas()
+    this.ps.buscarEtiquetas()
       .pipe(
         map(resp => resp.map(item => ({id: item.id, nombre: item.nombre}))),
         takeUntil(this.destroy$))

@@ -42,7 +42,7 @@ public class PortafolioController {
 	
 	@GetMapping("/proyectos")
 	public List<Proyecto> obtenerProyectos() {
-		return portafolioService.obtenerProyectos();
+		return portafolioService.buscarProyectos();
 	}
 	
 	@GetMapping("/proyecto/{id}")
@@ -51,7 +51,11 @@ public class PortafolioController {
 	}
 	
 	@GetMapping("/proyectos/buscar")
-	public List<Proyecto> buscarProyectos(@RequestParam String termino) {
+	public List<Proyecto> buscarProyectos(@RequestParam(name = "search", required = false) String termino) {
+		log.info("Buscando por {}...", termino);
+		if (termino == null || termino.equals("null") || termino.isEmpty()) {
+			return portafolioService.buscarProyectos();
+		}
 		return portafolioService.buscarProyectos(termino);
 	}
 	

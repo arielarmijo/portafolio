@@ -45,7 +45,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   buscar(termino: string) {
-    this.proyectoService.buscarProyecto(termino);
+    this.router.navigate(['/proyectos'], {queryParams: {search: termino}});
   }
 
   logout(): void {

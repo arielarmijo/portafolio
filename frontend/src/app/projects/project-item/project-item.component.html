@@ -30,9 +30,6 @@
                         <i class="fas fa-globe"></i>
                         <span>{{proyecto.nombre}}</span>
                     </a>
-                </p>
-
-                <p class="link">
                     <a [href]="proyecto.urlRepositorio" class="card-link">
                         <i class="fab fa-github"></i>
                         <span>GitHub</span>
@@ -40,7 +37,7 @@
                 </p>
 
                 <div class="tag-container">
-                    <span class="badge bg-secondary" *ngFor="let etiqueta of proyecto.etiquetas">{{etiqueta.nombre}}</span>
+                    <span class="badge bg-secondary" *ngFor="let etiqueta of proyecto.etiquetas" (click)="buscar(etiqueta.nombre)">{{etiqueta.nombre}}</span>
                 </div>
 
                 <a class="btn btn-sm btn-primary float-end" (click)="goBack()">Volver</a>

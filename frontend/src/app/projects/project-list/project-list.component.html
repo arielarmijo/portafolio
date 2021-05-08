@@ -7,26 +7,9 @@
     </div>
 
     <div class="row g-4" *ngIf="proyectos.length > 0">
-
         <div class="col" *ngFor="let proyecto of proyectos">
-
-            <div  class="card text-white flip-card" (click)="voltear(proyecto.id)">
-
-                <div #tref [id]="proyecto.id" class="flip-card-inner shadow">
-
-                    <img [src]="proyecto.urlImagen" class="flip-card-front" [alt]="proyecto.nombre"/>
-
-                    <div class="card-img-overlay flip-card-back">
-                        <h5 class="card-title">{{proyecto.nombre}}</h5>
-                        <p class="card-text pt-2">{{proyecto.descripcionCorta}}</p>
-                        <button class="btn btn-sm btn-primary shadow-lg" [routerLink]="['/proyecto', proyecto.id]">Ver</button>
-                    </div>
-
-                </div>
-
-            </div>
-
+            <app-flip-card [proyecto]="proyecto"></app-flip-card>
         </div>
-
     </div>
+
 </div>

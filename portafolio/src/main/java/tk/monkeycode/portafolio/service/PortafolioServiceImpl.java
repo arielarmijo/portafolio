@@ -24,7 +24,7 @@ public class PortafolioServiceImpl implements PortafolioService {
 	private EtiquetaRepository etiquetaRepo;
 	
 	@Override
-	public List<Proyecto> obtenerProyectos() {
+	public List<Proyecto> buscarProyectos() {
 		return proyectoRepo.findAllProyects();
 	}
 
@@ -73,7 +73,11 @@ public class PortafolioServiceImpl implements PortafolioService {
 		List<Proyecto> pNombre = proyectoRepo.findByNombreContainingIgnoreCase(termino);
 		List<Etiqueta> etiquetas = etiquetaRepo.findBynombreContainingIgnoreCase(termino);
 		List<Proyecto> pEtiqueta = proyectoRepo.findByEtiquetasIn(etiquetas);
-		return Stream.of(pNombre, pEtiqueta).flatMap(x -> x.stream()).collect(Collectors.toList());
+		return Stream.of(pNombre, pEtiqueta)
+					 .flatMap(x -> x.stream())
+					 .distinct()
+					 .sorted((o1, o2)-> o2.getCreadoEn().compareTo(o1.getCreadoEn()))
+					 .collect(Collectors.toList());
 	}
 	
 }

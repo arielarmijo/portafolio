@@ -9,12 +9,15 @@
 
     <div id="navbarNav" class="collapse navbar-collapse">
         <ul class="navbar-nav">
+
             <li class="nav-item" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
                 <a class="nav-link" routerLink="/proyectos" routerLinkActive="active">Proyectos</a>
             </li>
+
             <li class="nav-item" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
                 <a class="nav-link" routerLink="/acerca-de" routerLinkActive="active">Acerca&nbsp;de</a>
             </li>
+
             <li class="nav-item">
                 <div class="nav-search">
                     <label for="search" (click)="toggleSearch()">
@@ -24,18 +27,22 @@
                         [hidden]="hideSearchInput" (keyup.enter)="buscar(search.value)" />
                 </div>
             </li>
+
             <li *ngIf="isAuthenticated" class="nav-item" data-bs-toggle="collapse"
                 data-bs-target=".navbar-collapse.show">
                 <a class="nav-link" routerLink="/admin" routerLinkActive="active"><i class="fas fa-cog"></i></a>
             </li>
+
             <li *ngIf="!isAuthenticated" class="nav-item" data-bs-toggle="collapse"
                 data-bs-target=".navbar-collapse.show">
                 <a class="nav-link" routerLink="/login"><i class="fas fa-sign-in-alt"></i></a>
             </li>
+            
             <li *ngIf="isAuthenticated" class="nav-item" data-bs-toggle="collapse"
                 data-bs-target=".navbar-collapse.show">
                 <a class="nav-link" (click)="logout()"><i class="fas fa-sign-out-alt"></i></a>
             </li>
+
         </ul>
     </div>
 
