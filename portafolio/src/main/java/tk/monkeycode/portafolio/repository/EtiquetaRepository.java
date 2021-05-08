@@ -11,4 +11,6 @@ public interface EtiquetaRepository extends CrudRepository<Etiqueta, Integer> {
 
 	@Query("from Etiqueta")
 	List<Etiqueta> findAllTags();
+	
+	List<Etiqueta> findBynombreContainingIgnoreCase(String nombre);
 }

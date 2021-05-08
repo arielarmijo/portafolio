@@ -10,11 +10,9 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Nationalized;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "etiquetas")
 @SequenceGenerator(name="etiquetaSeq", sequenceName = "etiqueta_seq", allocationSize = 1)

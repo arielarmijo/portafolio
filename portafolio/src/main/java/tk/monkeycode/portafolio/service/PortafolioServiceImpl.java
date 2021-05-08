@@ -1,6 +1,8 @@
 package tk.monkeycode.portafolio.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.transaction.Transactional;
 
@@ -68,7 +70,10 @@ public class PortafolioServiceImpl implements PortafolioService {
 
 	@Override
 	public List<Proyecto> buscarProyectos(String termino) {
-		return proyectoRepo.findByNombreContainingIgnoreCase(termino);
+		List<Proyecto> pNombre = proyectoRepo.findByNombreContainingIgnoreCase(termino);
+		List<Etiqueta> etiquetas = etiquetaRepo.findBynombreContainingIgnoreCase(termino);
+		List<Proyecto> pEtiqueta = proyectoRepo.findByEtiquetasIn(etiquetas);
+		return Stream.of(pNombre, pEtiqueta).flatMap(x -> x.stream()).collect(Collectors.toList());
 	}
 	
 }

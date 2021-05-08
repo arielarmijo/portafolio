@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import tk.monkeycode.portafolio.domain.Etiqueta;
 import tk.monkeycode.portafolio.domain.Proyecto;
 
 public interface ProyectoRepository extends CrudRepository<Proyecto, Integer> {
@@ -16,5 +17,7 @@ public interface ProyectoRepository extends CrudRepository<Proyecto, Integer> {
 	Optional<Proyecto> findById(int id);
 	
 	List<Proyecto> findByNombreContainingIgnoreCase(String term);
+	
+	List<Proyecto> findByEtiquetasIn(List<Etiqueta> etiquetas);
 
 }
